@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "airtable": {
+      "command": "python",
+      "args": ["airtable_mcp_server.py"],
+      "cwd": "D:/clg files/PROJECTS/airtable-mcp",
+      "env": {
+        "AIRTABLE_API_KEY": "your_airtable_api_key_here",
+        "AIRTABLE_EMAIL": "your_email@example.com",
+        "AIRTABLE_PASSWORD": "your_password_here"
+      }
+    }
+  }
+}
+

@@ -1,0 +1,663 @@
+{
+  "airtable_tools_metadata": {
+    "server_info": {
+      "name": "Airtable MCP Server",
+      "description": "A Model Context Protocol server for Airtable integration",
+      "version": "1.0.0",
+      "author": "Airtable MCP Team",
+      "documentation": "https://airtable.com/developers/web/api/introduction"
+    },
+    "authentication": {
+      "type": "API Key",
+      "required": true,
+      "environment_variable": "AIRTABLE_API_KEY",
+      "description": "Airtable Personal Access Token or API Key"
+    },
+    "tools": [
+      {
+        "name": "airtable_create_base",
+        "description": "Create base",
+        "category": "Base Management",
+        "function": "Creates a new airtable base with specified tables and fields within a workspace; ensure field options are valid for their type.",
+        "parameters": {
+          "name": {
+            "type": "string",
+            "required": true,
+            "description": "Name of the base to create"
+          },
+          "tables": {
+            "type": "string",
+            "required": true,
+            "description": "JSON string containing array of table objects with fields"
+          },
+          "workspace_id": {
+            "type": "string",
+            "required": true,
+            "description": "Workspace ID where the base will be created"
+          }
+        },
+        "returns": {
+          "data": "Response with base information and creation details",
+          "error": "Error message if operation fails",
+          "successful": "Boolean indicating success status"
+        },
+        "limitations": "Airtable API does not support programmatic base creation. This tool validates configuration for manual creation."
+      },
+      {
+        "name": "airtable_create_comment",
+        "description": "Create Comment",
+        "category": "Comments",
+        "function": "Creates a new comment on a specific record within an airtable base and table.",
+        "parameters": {
+          "base_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the base containing the record"
+          },
+          "record_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the record to comment on"
+          },
+          "table_id_or_name": {
+            "type": "string",
+            "required": true,
+            "description": "The ID or name of the table containing the record"
+          },
+          "text": {
+            "type": "string",
+            "required": true,
+            "description": "The comment text to add"
+          }
+        },
+        "returns": {
+          "data": "Response with comment information and creation details",
+          "error": "Error message if operation fails",
+          "successful": "Boolean indicating success status"
+        }
+      },
+      {
+        "name": "airtable_create_field",
+        "description": "Create Field",
+        "category": "Schema Management",
+        "function": "Creates a new field within a specified table in an airtable base.",
+        "parameters": {
+          "base_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the base containing the table"
+          },
+          "table_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the table to add the field to"
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "description": "Name of the field to create"
+          },
+          "type": {
+            "type": "string",
+            "required": false,
+            "default": "singleLineText",
+            "description": "Type of the field"
+          },
+          "description": {
+            "type": "string",
+            "required": false,
+            "description": "Description of the field"
+          },
+          "options": {
+            "type": "dict",
+            "required": false,
+            "description": "Field-specific options"
+          }
+        },
+        "returns": {
+          "data": "Response with field information and creation details",
+          "error": "Error message if operation fails",
+          "successful": "Boolean indicating success status"
+        }
+      },
+      {
+        "name": "airtable_create_multiple_records",
+        "description": "Create multiple records",
+        "category": "Records",
+        "function": "Creates multiple new records in a specified airtable table.",
+        "parameters": {
+          "base_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the base containing the table"
+          },
+          "table_id_or_name": {
+            "type": "string",
+            "required": true,
+            "description": "The ID or name of the table to add records to"
+          },
+          "records": {
+            "type": "string",
+            "required": true,
+            "description": "JSON string containing array of record objects with fields"
+          }
+        },
+        "returns": {
+          "data": "Response with created records information",
+          "error": "Error message if operation fails",
+          "successful": "Boolean indicating success status"
+        }
+      },
+      {
+        "name": "airtable_create_record",
+        "description": "Create a record",
+        "category": "Records",
+        "function": "Creates a new record in a specified airtable table; field values must conform to the table's column types.",
+        "parameters": {
+          "base_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the base containing the table"
+          },
+          "table_id_or_name": {
+            "type": "string",
+            "required": true,
+            "description": "The ID or name of the table to add the record to"
+          },
+          "fields": {
+            "type": "string",
+            "required": true,
+            "description": "JSON string containing field values object"
+          }
+        },
+        "returns": {
+          "data": "Response with created record information",
+          "error": "Error message if operation fails",
+          "successful": "Boolean indicating success status"
+        }
+      },
+      {
+        "name": "airtable_create_table",
+        "description": "Create table",
+        "category": "Schema Management",
+        "function": "Creates a new table within a specified existing airtable base, allowing definition of its name, description, and field structure.",
+        "parameters": {
+          "base_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the base to add the table to"
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "description": "Name of the table to create"
+          },
+          "fields": {
+            "type": "string",
+            "required": true,
+            "description": "JSON string containing array of field objects"
+          },
+          "description": {
+            "type": "string",
+            "required": false,
+            "description": "Description of the table"
+          }
+        },
+        "returns": {
+          "data": "Response with table information and creation details",
+          "error": "Error message if operation fails",
+          "successful": "Boolean indicating success status"
+        }
+      },
+      {
+        "name": "airtable_get_base_schema",
+        "description": "Get Base Schema",
+        "category": "Schema Management",
+        "function": "Retrieves the detailed schema for a specified airtable base, including its tables, fields, field types, and configurations, using the baseid.",
+        "parameters": {
+          "base_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the base to get schema for"
+          }
+        },
+        "returns": {
+          "data": "Response with base schema information",
+          "error": "Error message if operation fails",
+          "successful": "Boolean indicating success status"
+        }
+      },
+      {
+        "name": "airtable_get_record",
+        "description": "Get Record",
+        "category": "Records",
+        "function": "Retrieves a specific record from a table within an airtable base.",
+        "parameters": {
+          "base_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the base containing the table"
+          },
+          "table_id_or_name": {
+            "type": "string",
+            "required": true,
+            "description": "The ID or name of the table containing the record"
+          },
+          "record_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the record to retrieve"
+          },
+          "cell_format": {
+            "type": "string",
+            "required": false,
+            "default": "json",
+            "description": "Format for cell values"
+          },
+          "return_fields_by_field_id": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Return field names as IDs instead of names"
+          }
+        },
+        "returns": {
+          "data": "Response with record information",
+          "error": "Error message if operation fails",
+          "successful": "Boolean indicating success status"
+        }
+      },
+      {
+        "name": "airtable_get_user_info",
+        "description": "Get user information",
+        "category": "Authentication",
+        "function": "Retrieves information, such as id and permission scopes, for the currently authenticated airtable user from the /meta/whoami endpoint.",
+        "parameters": {},
+        "returns": {
+          "data": "Response with user information and scopes",
+          "error": "Error message if operation fails",
+          "successful": "Boolean indicating success status"
+        }
+      },
+      {
+        "name": "airtable_list_bases",
+        "description": "List bases",
+        "category": "Base Management",
+        "function": "Retrieves all airtable bases accessible to the authenticated user, which may include an 'offset' for pagination.",
+        "parameters": {},
+        "returns": {
+          "data": "Response with list of accessible bases",
+          "error": "Error message if operation fails",
+          "successful": "Boolean indicating success status"
+        }
+      },
+      {
+        "name": "airtable_list_comments",
+        "description": "List Comments",
+        "category": "Comments",
+        "function": "Retrieves all comments for a specific record in an airtable table, requiring existing baseid, tableidorname, and recordid.",
+        "parameters": {
+          "base_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the base containing the table"
+          },
+          "table_id_or_name": {
+            "type": "string",
+            "required": true,
+            "description": "The ID or name of the table containing the record"
+          },
+          "record_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the record to get comments for"
+          }
+        },
+        "returns": {
+          "data": "Response with list of comments",
+          "error": "Error message if operation fails",
+          "successful": "Boolean indicating success status"
+        }
+      },
+      {
+        "name": "airtable_delete_record",
+        "description": "Delete Record",
+        "category": "Records",
+        "function": "Permanently deletes a specific record from an existing table within an existing airtable base.",
+        "parameters": {
+          "base_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the base containing the table"
+          },
+          "table_id_or_name": {
+            "type": "string",
+            "required": true,
+            "description": "The ID or name of the table containing the record"
+          },
+          "record_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the record to delete"
+          }
+        },
+        "returns": {
+          "data": "Response with deletion confirmation",
+          "error": "Error message if operation fails",
+          "successful": "Boolean indicating success status"
+        }
+      },
+      {
+        "name": "airtable_delete_multiple_records",
+        "description": "Delete multiple records",
+        "category": "Records",
+        "function": "Deletes up to 10 specified records from a table within an airtable base.",
+        "parameters": {
+          "base_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the base containing the table"
+          },
+          "table_id_or_name": {
+            "type": "string",
+            "required": true,
+            "description": "The ID or name of the table to delete records from"
+          },
+          "record_ids": {
+            "type": "string",
+            "required": true,
+            "description": "JSON string containing array of record IDs to delete"
+          }
+        },
+        "returns": {
+          "data": "Response with deletion confirmation and count",
+          "error": "Error message if operation fails",
+          "successful": "Boolean indicating success status"
+        },
+        "limitations": "Maximum 10 records can be deleted at once"
+      },
+      {
+        "name": "airtable_delete_comment",
+        "description": "Delete Comment",
+        "category": "Comments",
+        "function": "Deletes an existing comment from a specified record in an airtable table.",
+        "parameters": {
+          "base_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the base containing the table"
+          },
+          "table_id_or_name": {
+            "type": "string",
+            "required": true,
+            "description": "The ID or name of the table containing the record"
+          },
+          "record_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the record containing the comment"
+          },
+          "row_comment_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the comment to delete"
+          }
+        },
+        "returns": {
+          "data": "Response with deletion confirmation",
+          "error": "Error message if operation fails",
+          "successful": "Boolean indicating success status"
+        }
+      },
+      {
+        "name": "airtable_update_record",
+        "description": "Update record",
+        "category": "Records",
+        "function": "Modifies specified fields of an existing record in an airtable base and table; the base, table, and record must exist.",
+        "parameters": {
+          "base_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the base containing the table"
+          },
+          "table_id_or_name": {
+            "type": "string",
+            "required": true,
+            "description": "The ID or name of the table containing the record"
+          },
+          "record_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the record to update"
+          },
+          "fields": {
+            "type": "string",
+            "required": true,
+            "description": "JSON string containing field values object"
+          },
+          "return_fields_by_field_id": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Return field names as IDs instead of names"
+          }
+        },
+        "returns": {
+          "data": "Response with updated record information",
+          "error": "Error message if operation fails",
+          "successful": "Boolean indicating success status"
+        }
+      },
+      {
+        "name": "airtable_update_multiple_records",
+        "description": "Update multiple records",
+        "category": "Records",
+        "function": "Updates multiple existing records in a specified airtable table; these updates are not performed atomically.",
+        "parameters": {
+          "base_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the base containing the table"
+          },
+          "table_id_or_name": {
+            "type": "string",
+            "required": true,
+            "description": "The ID or name of the table to update records in"
+          },
+          "records": {
+            "type": "string",
+            "required": true,
+            "description": "JSON string containing array of record objects with id and fields"
+          }
+        },
+        "returns": {
+          "data": "Response with updated records information",
+          "error": "Error message if operation fails",
+          "successful": "Boolean indicating success status"
+        },
+        "limitations": "Updates are not performed atomically"
+      },
+      {
+        "name": "airtable_list_records",
+        "description": "List records",
+        "category": "Records",
+        "function": "Retrieves records from an airtable table, with options for filtering, sorting, pagination, and specifying returned fields.",
+        "parameters": {
+          "base_id": {
+            "type": "string",
+            "required": true,
+            "description": "The ID of the base containing the table"
+          },
+          "table_id_or_name": {
+            "type": "string",
+            "required": true,
+            "description": "The ID or name of the table to get records from"
+          },
+          "cell_format": {
+            "type": "string",
+            "required": false,
+            "default": "json",
+            "description": "Format for cell values"
+          },
+          "fields": {
+            "type": "string",
+            "required": false,
+            "description": "JSON string containing array of field names to return"
+          },
+          "filter_by_formula": {
+            "type": "string",
+            "required": false,
+            "description": "Formula to filter records"
+          },
+          "max_records": {
+            "type": "integer",
+            "required": false,
+            "description": "Maximum number of records to return"
+          },
+          "offset": {
+            "type": "string",
+            "required": false,
+            "description": "Offset for pagination"
+          },
+          "page_size": {
+            "type": "integer",
+            "required": false,
+            "default": 100,
+            "description": "Number of records per page"
+          },
+          "record_metadata": {
+            "type": "string",
+            "required": false,
+            "description": "JSON string containing array of metadata fields"
+          },
+          "return_fields_by_field_id": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Return field names as IDs instead of names"
+          },
+          "sort": {
+            "type": "string",
+            "required": false,
+            "description": "JSON string containing array of sort objects"
+          },
+          "time_zone": {
+            "type": "string",
+            "required": false,
+            "default": "utc",
+            "description": "Time zone for date/time fields"
+          },
+          "user_locale": {
+            "type": "string",
+            "required": false,
+            "description": "Locale for formatting"
+          },
+          "view": {
+            "type": "string",
+            "required": false,
+            "description": "View ID or name to filter by"
+          }
+        },
+        "returns": {
+          "data": "Response with list of records and pagination info",
+          "error": "Error message if operation fails",
+          "successful": "Boolean indicating success status"
+        }
+      }
+    ],
+    "categories": {
+      "Base Management": {
+        "description": "Tools for managing Airtable bases",
+        "tools": ["airtable_create_base", "airtable_list_bases", "airtable_get_base_schema"]
+      },
+      "Schema Management": {
+        "description": "Tools for managing table and field schemas",
+        "tools": ["airtable_create_table", "airtable_create_field", "airtable_get_base_schema"]
+      },
+      "Records": {
+        "description": "Tools for managing records (CRUD operations)",
+        "tools": ["airtable_create_record", "airtable_create_multiple_records", "airtable_get_record", "airtable_list_records", "airtable_update_record", "airtable_update_multiple_records", "airtable_delete_record", "airtable_delete_multiple_records"]
+      },
+      "Comments": {
+        "description": "Tools for managing comments on records",
+        "tools": ["airtable_create_comment", "airtable_list_comments", "airtable_delete_comment"]
+      },
+      "Authentication": {
+        "description": "Tools for user authentication and information",
+        "tools": ["airtable_get_user_info"]
+      }
+    },
+    "field_types": {
+      "singleLineText": "Single line text field",
+      "multilineText": "Multi-line text field",
+      "richText": "Rich text field with formatting",
+      "email": "Email address field",
+      "url": "URL field",
+      "number": "Number field",
+      "currency": "Currency field",
+      "percent": "Percentage field",
+      "phoneNumber": "Phone number field",
+      "date": "Date field",
+      "dateTime": "Date and time field",
+      "checkbox": "Checkbox field",
+      "singleSelect": "Single select dropdown",
+      "multipleSelects": "Multiple select checkboxes",
+      "rating": "Rating field",
+      "attachment": "File attachment field",
+      "barcode": "Barcode field",
+      "rollup": "Rollup field (calculated from linked records)",
+      "lookup": "Lookup field (from linked records)",
+      "formula": "Formula field (calculated)",
+      "button": "Button field",
+      "autoNumber": "Auto-number field",
+      "createdTime": "Created time field (system)",
+      "lastModifiedTime": "Last modified time field (system)",
+      "createdBy": "Created by field (system)",
+      "lastModifiedBy": "Last modified by field (system)"
+    },
+    "error_handling": {
+      "common_errors": [
+        {
+          "error_type": "AUTHENTICATION_REQUIRED",
+          "description": "Authentication failed. Check your AIRTABLE_API_KEY."
+        },
+        {
+          "error_type": "INVALID_API_KEY",
+          "description": "Invalid API key. Check your AIRTABLE_API_KEY."
+        },
+        {
+          "error_type": "INSUFFICIENT_PERMISSIONS",
+          "description": "Insufficient permissions for the requested operation."
+        },
+        {
+          "error_type": "WORKSPACE_NOT_FOUND",
+          "description": "The specified workspace was not found or you don't have access to it."
+        },
+        {
+          "error_type": "timeout_error",
+          "description": "Request timed out. The Airtable API is taking too long to respond."
+        },
+        {
+          "error_type": "network_error",
+          "description": "Network connectivity issue. Check your internet connection."
+        }
+      ]
+    },
+    "rate_limits": {
+      "description": "Airtable API has rate limits that vary by plan",
+      "free_plan": "5 requests per second",
+      "plus_plan": "10 requests per second",
+      "pro_plan": "20 requests per second",
+      "enterprise_plan": "Custom rate limits"
+    },
+    "best_practices": [
+      "Always validate JSON input parameters before making API calls",
+      "Use appropriate field types for your data",
+      "Implement proper error handling for network and API errors",
+      "Respect rate limits to avoid throttling",
+      "Use pagination for large datasets",
+      "Test with small datasets before processing large amounts of data",
+      "Keep API keys secure and never expose them in client-side code"
+    ]
+  }
+}
