@@ -276,31 +276,3 @@ export AIRTABLE_DEBUG=true
 | `email` | Email address | No |
 | `url` | URL | No |
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🆘 Support
-
-For issues and questions:
-1. Check the troubleshooting section
-2. Review Airtable API documentation
-3. Open an issue on GitHub
-
-## 🔗 Useful Links
-
-- [Airtable API Documentation](https://airtable.com/developers/web/api/introduction)
-- [MCP Protocol Documentation](https://modelcontextprotocol.io/)
-- [FastMCP Documentation](https://github.com/jlowin/fastmcp)
-
----
-
-**Note**: This MCP server provides comprehensive Airtable integration capabilities while respecting API limitations and best practices.
